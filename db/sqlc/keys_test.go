@@ -10,7 +10,7 @@ import (
 
 func createRandomKey(t *testing.T) Keys {
 
-	argKey := util.RandomOwnerName()
+	argKey := util.RandomString(32)
 
 	key, err := testQueries.CreateKey(context.Background(), argKey)
 
