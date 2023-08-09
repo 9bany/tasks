@@ -16,5 +16,5 @@ COPY db/migration ./migration
 RUN ["chmod", "+x", "/app/migrate.sh"]
 
 EXPOSE 8080
-CMD [ "/app/task", "server" ]
+CMD [ "/app/task", "serve" ]
 ENTRYPOINT [ "/app/migrate.sh" ]
