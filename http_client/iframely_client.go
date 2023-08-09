@@ -45,5 +45,7 @@ func (r *IframelyRequestor) FetchURL(context context.Context, apikey, url string
 		return nil, fmt.Errorf("data response is empty")
 	}
 
-	return data, nil
+	// ops after request
+	// ops data outcome with url type
+	return siteOperateData(url, data)
 }
