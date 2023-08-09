@@ -33,6 +33,7 @@ func (s *Server) GetSite(ctx *gin.Context) {
 			site, err := s.renewSite(ctx, url)
 			if err != nil {
 				ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+				return
 			}
 
 			ctx.JSON(http.StatusOK, site)
