@@ -28,3 +28,9 @@ func RandomString(n int) string {
 
 	return sb.String()
 }
+
+func RanJsonMap() map[string]interface{} {
+	datas := make(map[string]interface{})
+	datas[RandomString(10)] = RandomString(20)
+	return datas
+}
