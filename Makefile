@@ -13,4 +13,4 @@ sqlc:
 	sqlc generate 
 mock: 
 	mockgen -package mock -source db/sqlc/querier.go  -destination=./db/mock/querier.go
-	mockgen -package mock -source http_client/iframely_client.go  -destination=./http_client/mock/iframely.go
+	mockgen -package mock -source http_client/iframely_client.go -destination=./http_client/mock/iframely.go
