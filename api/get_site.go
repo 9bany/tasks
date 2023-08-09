@@ -56,7 +56,7 @@ func (s *Server) renewSite(ctx context.Context, url string) (*db.Sites, error) {
 
 	data, err := s.iframelyClient.FetchURL(ctx, key.Key, url)
 	if err != nil || data == nil {
-		return nil, fmt.Errorf("can not fetch url: %s", err.Error())
+		return nil, fmt.Errorf("can not fetch data from url")
 	}
 
 	data, err = siteDataFactory(data, embedYoutubeVideoIDOps, embedDataIframelyUrlOps)

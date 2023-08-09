@@ -2,7 +2,9 @@ package api
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -83,9 +85,18 @@ func TestGetSite(t *testing.T) {
 			buildStubs: func(store *mockdb.MockQuerier, mockHttp *mockHttpclient.MockIframelyClient) {
 				store.EXPECT().GetSiteByURL(gomock.Any(), gomock.Any()).Times(1).Return(db.Sites{}, sql.ErrNoRows)
 				store.EXPECT().GetRandomKey(gomock.Any()).Times(1).Return(db.Keys{Key: "api_key"}, nil)
-
-				mockHttp.EXPECT().FetchURL(gomock.Any(), gomock.Any(), gomock.Any()).Times(1).Return([]byte{}, nil)
 				
+				mapData := map[string]interface{}{}
+				mapData["url"] = testUrl
+				mapData["html"] = "html"
+
+				data, err := json.Marshal(mapData)
+				if err != nil {
+					log.Panicln("can not marshal data")
+				}
+
+				mockHttp.EXPECT().FetchURL(gomock.Any(), gomock.Any(), gomock.Any()).Times(1).Return(data, nil)
+
 				store.EXPECT().IncreaseKeyUsageCount(gomock.Any(), gomock.Any()).Times(1)
 
 				store.EXPECT().CreateSite(gomock.Any(), gomock.Any()).Times(1).Return(db.Sites{}, fmt.Errorf("some error"))
@@ -102,8 +113,17 @@ func TestGetSite(t *testing.T) {
 				store.EXPECT().GetSiteByURL(gomock.Any(), gomock.Any()).Times(1).Return(db.Sites{}, sql.ErrNoRows)
 				store.EXPECT().GetRandomKey(gomock.Any()).Times(1).Return(db.Keys{Key: "api_key"}, nil)
 
-				mockHttp.EXPECT().FetchURL(gomock.Any(), gomock.Any(), gomock.Any()).Times(1).Return([]byte{}, nil)
-				
+				mapData := map[string]interface{}{}
+				mapData["url"] = testUrl
+				mapData["html"] = "html"
+
+				data, err := json.Marshal(mapData)
+				if err != nil {
+					log.Panicln("can not marshal data")
+				}
+
+				mockHttp.EXPECT().FetchURL(gomock.Any(), gomock.Any(), gomock.Any()).Times(1).Return(data, nil)
+
 				store.EXPECT().IncreaseKeyUsageCount(gomock.Any(), gomock.Any()).Times(1)
 
 				store.EXPECT().CreateSite(gomock.Any(), gomock.Any()).Times(1).Return(db.Sites{}, nil)
