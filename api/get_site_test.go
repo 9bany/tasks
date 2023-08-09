@@ -18,6 +18,18 @@ import (
 
 const testUrl = "https://vnexpress.net/khu-vuc-lu-quet-o-ha-noi-co-nhieu-cong-trinh-xay-trai-phep-4638945.html"
 
+func fakeMetaData() []byte {
+	mapData := map[string]interface{}{}
+	mapData["url"] = testUrl
+	mapData["html"] = "html"
+
+	data, err := json.Marshal(mapData)
+	if err != nil {
+		log.Panicln("can not marshal data")
+	}
+	return data
+}
+
 func TestGetSite(t *testing.T) {
 
 	testCases := []struct {
@@ -85,17 +97,8 @@ func TestGetSite(t *testing.T) {
 			buildStubs: func(store *mockdb.MockQuerier, mockHttp *mockHttpclient.MockIframelyClient) {
 				store.EXPECT().GetSiteByURL(gomock.Any(), gomock.Any()).Times(1).Return(db.Sites{}, sql.ErrNoRows)
 				store.EXPECT().GetRandomKey(gomock.Any()).Times(1).Return(db.Keys{Key: "api_key"}, nil)
-				
-				mapData := map[string]interface{}{}
-				mapData["url"] = testUrl
-				mapData["html"] = "html"
 
-				data, err := json.Marshal(mapData)
-				if err != nil {
-					log.Panicln("can not marshal data")
-				}
-
-				mockHttp.EXPECT().FetchURL(gomock.Any(), gomock.Any(), gomock.Any()).Times(1).Return(data, nil)
+				mockHttp.EXPECT().FetchURL(gomock.Any(), gomock.Any(), gomock.Any()).Times(1).Return(fakeMetaData(), nil)
 
 				store.EXPECT().IncreaseKeyUsageCount(gomock.Any(), gomock.Any()).Times(1)
 
@@ -113,16 +116,7 @@ func TestGetSite(t *testing.T) {
 				store.EXPECT().GetSiteByURL(gomock.Any(), gomock.Any()).Times(1).Return(db.Sites{}, sql.ErrNoRows)
 				store.EXPECT().GetRandomKey(gomock.Any()).Times(1).Return(db.Keys{Key: "api_key"}, nil)
 
-				mapData := map[string]interface{}{}
-				mapData["url"] = testUrl
-				mapData["html"] = "html"
-
-				data, err := json.Marshal(mapData)
-				if err != nil {
-					log.Panicln("can not marshal data")
-				}
-
-				mockHttp.EXPECT().FetchURL(gomock.Any(), gomock.Any(), gomock.Any()).Times(1).Return(data, nil)
+				mockHttp.EXPECT().FetchURL(gomock.Any(), gomock.Any(), gomock.Any()).Times(1).Return(fakeMetaData(), nil)
 
 				store.EXPECT().IncreaseKeyUsageCount(gomock.Any(), gomock.Any()).Times(1)
 
