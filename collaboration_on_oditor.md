@@ -4,9 +4,9 @@
 
 ## Contents
 
-1. Contexts
-1. Operational Transformation
-1. System Architect
+1. [Contexts](#contexts)
+1. [System Architect](#system-architect)
+1. [Operational Transformation](#operational-transformation)
 
 
 ### Contexts
