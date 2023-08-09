@@ -28,10 +28,10 @@ func New(hostUrl string) *IframelyRequestor {
 }
 
 func (r *IframelyRequestor) FetchURL(context context.Context, apikey, url string) ([]byte, error) {
-	resp, err := r.client.R().SetPathParams(map[string]string{
-		"url":     url,
-		"api_key": apikey,
-	}).Get("/api/oembed")
+	r.client.SetQueryParam("url", url)
+	r.client.SetQueryParam("api_key", apikey)
+	resp, err := r.client.R().Get("/api/oembed")
+
 	if err != nil {
 		return nil, err
 	}
