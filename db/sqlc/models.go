@@ -5,6 +5,7 @@
 package db
 
 import (
+	"encoding/json"
 	"time"
 )
 
@@ -13,4 +14,11 @@ type Keys struct {
 	Key        string    `json:"key"`
 	UsageCount int32     `json:"usage_count"`
 	CreatedAt  time.Time `json:"created_at"`
+}
+
+type Sites struct {
+	ID        int32           `json:"id"`
+	Url       string          `json:"url"`
+	MetaData  json.RawMessage `json:"meta_data"`
+	CreatedAt time.Time       `json:"created_at"`
 }
