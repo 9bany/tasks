@@ -21,12 +21,12 @@ docker run --add-host host.docker.internal:host-gateway -p 8080:8080 -e DB_SOURC
 docker exec -it <container_app_name> /bin/sh
 ```
 2. Insert your key
-Follow this command:
+
 ```
 ./task keys create --key=<your_key>
 ```
-2. Log key info
-Follow this command:
+3. Log key info
+
 ```
 ./task keys get --key=<your_key>
 ```
