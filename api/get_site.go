@@ -63,6 +63,7 @@ func (s *Server) renewSite(ctx context.Context, url string) (*db.Sites, error) {
 		return nil, fmt.Errorf("can not fetch data from url: %s", err.Error())
 	}
 
+	// weak: this code will break when iframely change data reponse interface
 	data, err = siteDataFactory(data, embedYoutubeVideoIDOps, embedDataIframelyUrlOps)
 	if err != nil {
 		return nil, fmt.Errorf("can not prepare data:  %s", err.Error())
