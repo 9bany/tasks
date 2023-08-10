@@ -24,7 +24,7 @@ func startServer(cmd *cobra.Command, args []string) {
 
 	conn, err := sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
-		log.Fatal("Can not connect to database:", err)
+		log.Fatal("can not connect to database:", err)
 	}
 
 	store := db.New(conn)
@@ -33,7 +33,7 @@ func startServer(cmd *cobra.Command, args []string) {
 
 	server, err := api.NewServer(config, store, iframelyClient)
 	if err != nil {
-		log.Fatalln("Can not start server", err)
+		log.Fatalln("can not start server", err)
 	}
 	server.Start(config.ServerAddress)
 }

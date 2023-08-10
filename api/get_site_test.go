@@ -41,8 +41,7 @@ func TestGetSite(t *testing.T) {
 		{
 			name: "empty url",
 			url:  "",
-			buildStubs: func(store *mockdb.MockQuerier, mockHttp *mockHttpclient.MockIframelyClient) {
-			},
+			buildStubs: func(store *mockdb.MockQuerier, mockHttp *mockHttpclient.MockIframelyClient) {},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusBadRequest, recorder.Code)
 			},
@@ -50,8 +49,7 @@ func TestGetSite(t *testing.T) {
 		{
 			name: "url error format",
 			url:  "error format",
-			buildStubs: func(store *mockdb.MockQuerier, mockHttp *mockHttpclient.MockIframelyClient) {
-			},
+			buildStubs: func(store *mockdb.MockQuerier, mockHttp *mockHttpclient.MockIframelyClient) {},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusBadRequest, recorder.Code)
 			},
@@ -61,7 +59,6 @@ func TestGetSite(t *testing.T) {
 			url:  testUrl,
 			buildStubs: func(store *mockdb.MockQuerier, mockHttp *mockHttpclient.MockIframelyClient) {
 				store.EXPECT().GetSiteByURL(gomock.Any(), gomock.Any()).Times(1).Return(db.Sites{}, sql.ErrConnDone)
-				//
 			},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusInternalServerError, recorder.Code)
@@ -101,7 +98,6 @@ func TestGetSite(t *testing.T) {
 				mockHttp.EXPECT().FetchURL(gomock.Any(), gomock.Any(), gomock.Any()).Times(1).Return(fakeMetaData(), nil)
 
 				store.EXPECT().IncreaseKeyUsageCount(gomock.Any(), gomock.Any()).Times(1)
-
 				store.EXPECT().CreateSite(gomock.Any(), gomock.Any()).Times(1).Return(db.Sites{}, fmt.Errorf("some error"))
 
 			},
@@ -119,7 +115,6 @@ func TestGetSite(t *testing.T) {
 				mockHttp.EXPECT().FetchURL(gomock.Any(), gomock.Any(), gomock.Any()).Times(1).Return(fakeMetaData(), nil)
 
 				store.EXPECT().IncreaseKeyUsageCount(gomock.Any(), gomock.Any()).Times(1)
-
 				store.EXPECT().CreateSite(gomock.Any(), gomock.Any()).Times(1).Return(db.Sites{}, nil)
 
 			},

@@ -21,20 +21,20 @@ var keysCreateCmd = &cobra.Command{
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(keyString) == 0 {
-			log.Println("command: task key create --key='<key>'")
+			log.Println("command: task keys create --key='<key>'")
 		}
 		config := util.LoadConfig()
 		conn, err := sql.Open(config.DBDriver, config.DBSource)
 		if err != nil {
-			log.Fatal("Can not connect to database:", err)
+			log.Fatal("can not connect to database:", err)
 		}
 
 		store := db.New(conn)
 		key, err := store.CreateKey(cmd.Context(), keyString)
 		if err != nil {
-			log.Println("can not insert your key into db")
+			log.Println("can not insert key into db")
 		}
-		log.Println("key insertd: ", key.Key)
+		log.Println("key inserted: ", key.Key)
 	},
 }
 
@@ -44,12 +44,12 @@ var getKeyCmd = &cobra.Command{
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(keyString) == 0 {
-			log.Println("command: task key get --key='<key>'")
+			log.Println("command: task keys get --key='<key>'")
 		}
 		config := util.LoadConfig()
 		conn, err := sql.Open(config.DBDriver, config.DBSource)
 		if err != nil {
-			log.Fatal("Can not connect to database:", err)
+			log.Fatal("can not connect to database:", err)
 		}
 
 		store := db.New(conn)
@@ -65,8 +65,8 @@ func init() {
 	rootCmd.AddCommand(keysCmd)
 	keysCmd.AddCommand(keysCreateCmd)
 	keysCmd.AddCommand(getKeyCmd)
-	keysCreateCmd.PersistentFlags().StringVar(&keyString, "key", "", "key you want insert to db")
-	getKeyCmd.PersistentFlags().StringVar(&keyString, "key", "", "key you want to get info")
+	keysCreateCmd.PersistentFlags().StringVar(&keyString, "key", "", "")
+	getKeyCmd.PersistentFlags().StringVar(&keyString, "key", "", "")
 }
 
 var keysCmd = &cobra.Command{

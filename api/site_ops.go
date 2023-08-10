@@ -40,12 +40,12 @@ func embedDataIframelyUrlOps(data []byte) ([]byte, error) {
 
 	err := json.Unmarshal(data, &mapData)
 	if err != nil {
-		return nil, fmt.Errorf("embedDataIframelyUrlOps: can not unmarsahl data %s", err.Error())
+		return nil, fmt.Errorf("can not unmarsahl data %s", err.Error())
 	}
 
 	htmlString, ok := mapData["html"].(string)
 	if !ok {
-		return nil, fmt.Errorf("embedYoutubeVideoIDOps: can not get html in data %s", err.Error())
+		return nil, fmt.Errorf("can not get `html` key in data")
 	}
 
 	if strings.Contains(htmlString, "data-iframely-url") {
@@ -61,12 +61,12 @@ func embedYoutubeVideoIDOps(data []byte) ([]byte, error) {
 
 	err := json.Unmarshal(data, &mapData)
 	if err != nil {
-		return nil, fmt.Errorf("embedYoutubeVideoIDOps: can not unmarsahl data %s", err.Error())
+		return nil, fmt.Errorf("can not unmarsahl data %s", err.Error())
 	}
 
 	urlString, ok := mapData["url"].(string)
 	if !ok {
-		return nil, fmt.Errorf("embedYoutubeVideoIDOps: can not get url in data %s", err.Error())
+		return nil, fmt.Errorf("can not get `url` key in data")
 	}
 
 	switch getSiteTypeFromURL(urlString) {
@@ -74,11 +74,12 @@ func embedYoutubeVideoIDOps(data []byte) ([]byte, error) {
 
 		url, err := url.ParseRequestURI(urlString)
 		if err != nil {
-			return nil, fmt.Errorf("can not operate data before return: %s", err.Error())
+			return nil, fmt.Errorf("can not parse `url` string to URL struct")
 		}
 
 		videoID := url.Query().Get("v")
 		if len(videoID) == 0 {
+			// skip this case
 			log.Println("videoId not exist in the url")
 			return data, nil
 		}

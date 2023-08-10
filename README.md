@@ -1,11 +1,12 @@
 # tasks
 
 ## Improves
+- [migration] move migration tool in code
 - [consider] performance: random api key query  
 - UnitTest: api request timeout, data stite error format, mete  data site ops error 
 - Log/span: When an API error occurs, this is helpful for tracing bugs.
 - Monitor: Add metrics to the get_site API.
-- SiteData structure: If the Iframely API interface is updated to a new version, this code will break.
+- SiteData structure: If the Iframely API interface is updated to a new version, this code will break.  
 ## Run
 ### 1. Docker
 Linux 
