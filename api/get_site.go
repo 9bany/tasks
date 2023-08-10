@@ -36,7 +36,7 @@ func (s *Server) GetSite(ctx *gin.Context) {
 				return
 			}
 
-			ctx.JSON(http.StatusOK, site)
+			ctx.JSON(http.StatusOK, site.MetaData)
 			return
 		}
 
@@ -44,7 +44,7 @@ func (s *Server) GetSite(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, site)
+	ctx.JSON(http.StatusOK, site.MetaData)
 
 }
 
@@ -56,7 +56,12 @@ func (s *Server) renewSite(ctx context.Context, url string) (*db.Sites, error) {
 
 	data, err := s.iframelyClient.FetchURL(ctx, key.Key, url)
 	if err != nil || data == nil {
-		return nil, fmt.Errorf("can not fetch url: %s", err.Error())
+		return nil, fmt.Errorf("can not fetch data from url")
+	}
+
+	data, err = siteDataFactory(data, embedYoutubeVideoIDOps, embedDataIframelyUrlOps)
+	if err != nil {
+		return nil, fmt.Errorf("can not prepare data %s", err.Error())
 	}
 
 	err = s.store.IncreaseKeyUsageCount(ctx, key.ID)
