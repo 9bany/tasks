@@ -11,6 +11,7 @@ import (
 type Querier interface {
 	CreateKey(ctx context.Context, key string) (Keys, error)
 	CreateSite(ctx context.Context, arg CreateSiteParams) (Sites, error)
+	GetKey(ctx context.Context, key string) (Keys, error)
 	GetRandomKey(ctx context.Context) (Keys, error)
 	GetSiteByURL(ctx context.Context, url string) (Sites, error)
 	IncreaseKeyUsageCount(ctx context.Context, id int32) error

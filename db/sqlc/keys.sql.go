@@ -30,6 +30,23 @@ func (q *Queries) CreateKey(ctx context.Context, key string) (Keys, error) {
 	return i, err
 }
 
+const getKey = `-- name: GetKey :one
+SELECT id, key, usage_count, created_at FROM keys
+WHERE key = $1
+`
+
+func (q *Queries) GetKey(ctx context.Context, key string) (Keys, error) {
+	row := q.db.QueryRowContext(ctx, getKey, key)
+	var i Keys
+	err := row.Scan(
+		&i.ID,
+		&i.Key,
+		&i.UsageCount,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
 const getRandomKey = `-- name: GetRandomKey :one
 SELECT id, key, usage_count, created_at FROM keys
 ORDER BY RANDOM()

@@ -6,6 +6,10 @@ INSERT INTO keys (
 )
 RETURNING *;
 
+-- name: GetKey :one
+SELECT * FROM keys
+WHERE key = $1;
+
 -- name: GetRandomKey :one
 SELECT * FROM keys
 ORDER BY RANDOM()
