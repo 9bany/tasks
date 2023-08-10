@@ -10,7 +10,6 @@ WORKDIR /app
 RUN apk add --no-cache bash
 COPY --from=builder /app/task .
 COPY --from=builder /app/migrate ./migrate
-COPY app.env .
 COPY migrate.sh .
 COPY db/migration ./migration
 RUN ["chmod", "+x", "/app/migrate.sh"]

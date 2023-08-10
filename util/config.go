@@ -1,7 +1,7 @@
 package util
 
 import (
-	"github.com/spf13/viper"
+	"os"
 )
 
 type Config struct {
@@ -11,16 +11,19 @@ type Config struct {
 	IframeURL     string `mapstructure:"IFRAMELY_URL"`
 }
 
-func LoadConfig(path string) (config Config, err error) {
-	viper.AddConfigPath(path)
-	viper.SetConfigName("app")
-	viper.SetConfigType("env")
-
-	viper.AutomaticEnv()
-	err = viper.ReadInConfig()
-	if err != nil {
-		return
+func getenv(key, fallback string) string {
+	value := os.Getenv(key)
+	if len(value) == 0 {
+		return fallback
 	}
-	viper.Unmarshal(&config)
-	return
+	return value
+}
+
+func LoadConfig() Config {
+	return Config{
+		DBDriver:      getenv("DB_DRIVER", "postgres"),
+		DBSource:      getenv("DB_SOURCE", "postgresql://root:secret@localhost:5432/task?sslmode=disable"),
+		ServerAddress: getenv("SERVER_ADDRESS", "0.0.0.0:8080"),
+		IframeURL:     getenv("IFRAMELY_URL", "https://iframe.ly"),
+	}
 }

@@ -21,12 +21,7 @@ var keysCreateCmd = &cobra.Command{
 		if len(newKey) == 0 {
 			log.Println("command: task key create --key='<key>'")
 		}
-
-		var err error
-		config, err := util.LoadConfig("./")
-		if err != nil {
-			log.Fatalln("Can not load config file", err)
-		}
+		config := util.LoadConfig()
 		conn, err := sql.Open(config.DBDriver, config.DBSource)
 		if err != nil {
 			log.Fatal("Can not connect to database:", err)

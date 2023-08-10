@@ -15,10 +15,8 @@ var testDb *sql.DB
 
 func TestMain(m *testing.M) {
 	var err error
-	config, err := util.LoadConfig("../../test_envs")
-	if err != nil {
-		log.Fatalln("Can not load config file", err)
-	}
+	config := util.LoadConfig()
+
 	conn, err := sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		log.Fatal("Can not connect to database:", err)
