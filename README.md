@@ -9,5 +9,5 @@
 ### 1. Docker
 Linux 
 ```
-docker run --add-host host.docker.internal:host-gateway -p 80:8080 ghcr.io/9bany/tasks:latest
+docker run --add-host host.docker.internal:host-gateway -p 8080:8080 -e DB_SOURCE='postgresql://<user>:<pass>@host.docker.internal:5432/task?sslmode=disable' task:latest
 ```
