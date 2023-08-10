@@ -3,6 +3,7 @@ package api
 import (
 	db "github.com/9bany/task/db/sqlc"
 	httpclient "github.com/9bany/task/http_client"
+	"github.com/9bany/task/middleware"
 	"github.com/9bany/task/util"
 	"github.com/gin-gonic/gin"
 )
@@ -31,6 +32,8 @@ type Server struct {
 
 func (server *Server) setupRouters() {
 	router := gin.Default()
+	
+	router.Use(middleware.TimeoutMiddleware())
 
 	router.GET("/api/meta", server.GetSite)
 
