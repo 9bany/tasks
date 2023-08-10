@@ -32,7 +32,7 @@ var keysCreateCmd = &cobra.Command{
 		store := db.New(conn)
 		key, err := store.CreateKey(cmd.Context(), keyString)
 		if err != nil {
-			log.Println("can not insert your ket into db")
+			log.Println("can not insert your key into db")
 		}
 		log.Println("key insertd: ", key.Key)
 	},
@@ -55,7 +55,7 @@ var getKeyCmd = &cobra.Command{
 		store := db.New(conn)
 		key, err := store.GetKey(context.Background(), keyString)
 		if err != nil {
-			log.Println("can not insert your ket into db")
+			log.Println("can not get your key info")
 		}
 		log.Println("key info: ", structs.Map(key))
 	},
@@ -66,7 +66,7 @@ func init() {
 	keysCmd.AddCommand(keysCreateCmd)
 	keysCmd.AddCommand(getKeyCmd)
 	keysCreateCmd.PersistentFlags().StringVar(&keyString, "key", "", "key you want insert to db")
-	getKeyCmd.PersistentFlags().StringVar(&keyString, "key", "", "keyString you want to get info")
+	getKeyCmd.PersistentFlags().StringVar(&keyString, "key", "", "key you want to get info")
 }
 
 var keysCmd = &cobra.Command{
