@@ -41,3 +41,13 @@ func TestIncreaseUsageCount(t *testing.T) {
 	err := testQueries.IncreaseKeyUsageCount(context.Background(), key1.ID)
 	require.NoError(t, err)
 }
+
+func TestGetKeyInfo(t *testing.T) {
+	key1 := createRandomKey(t)
+	key2, err := testQueries.GetKey(context.Background(), key1.Key)
+	
+	require.NoError(t, err)
+	require.NotEmpty(t, key2)
+
+	require.Equal(t, key1.Key, key2.Key)
+}

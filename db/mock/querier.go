@@ -65,6 +65,21 @@ func (mr *MockQuerierMockRecorder) CreateSite(ctx, arg interface{}) *gomock.Call
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateSite", reflect.TypeOf((*MockQuerier)(nil).CreateSite), ctx, arg)
 }
 
+// GetKey mocks base method.
+func (m *MockQuerier) GetKey(ctx context.Context, key string) (db.Keys, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetKey", ctx, key)
+	ret0, _ := ret[0].(db.Keys)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetKey indicates an expected call of GetKey.
+func (mr *MockQuerierMockRecorder) GetKey(ctx, key interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetKey", reflect.TypeOf((*MockQuerier)(nil).GetKey), ctx, key)
+}
+
 // GetRandomKey mocks base method.
 func (m *MockQuerier) GetRandomKey(ctx context.Context) (db.Keys, error) {
 	m.ctrl.T.Helper()

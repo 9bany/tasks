@@ -3,6 +3,7 @@ module github.com/9bany/task
 go 1.20
 
 require (
+	github.com/fatih/structs v1.1.0
 	github.com/gin-contrib/timeout v0.0.3
 	github.com/gin-gonic/gin v1.9.1
 	github.com/golang/mock v1.4.4
