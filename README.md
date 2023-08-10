@@ -13,3 +13,20 @@ Linux
 ```
 docker run --add-host host.docker.internal:host-gateway -p 8080:8080 -e DB_SOURCE='postgresql://<user>:<pass>@host.docker.internal:5432/task?sslmode=disable' task:latest
 ```
+
+## Api Keys setup
+
+1. Exec into container
+```
+docker exec -it <container_app_name> /bin/sh
+```
+2. Insert your key
+Follow this command:
+```
+./task keys create --key=<your_key>
+```
+2. Log key info
+Follow this command:
+```
+./task keys get --key=<your_key>
+```
