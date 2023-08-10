@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"net"
 	"net/http"
 
 	db "github.com/9bany/task/db/sqlc"
@@ -56,12 +57,15 @@ func (s *Server) renewSite(ctx context.Context, url string) (*db.Sites, error) {
 
 	data, err := s.iframelyClient.FetchURL(ctx, key.Key, url)
 	if err != nil || data == nil {
-		return nil, fmt.Errorf("can not fetch data from url")
+		if e, ok := err.(net.Error); ok && e.Timeout() {
+			return nil, fmt.Errorf("request timeout: %s", err.Error())
+		}
+		return nil, fmt.Errorf("can not fetch data from url: %s", err.Error())
 	}
 
 	data, err = siteDataFactory(data, embedYoutubeVideoIDOps, embedDataIframelyUrlOps)
 	if err != nil {
-		return nil, fmt.Errorf("can not prepare data %s", err.Error())
+		return nil, fmt.Errorf("can not prepare data:  %s", err.Error())
 	}
 
 	err = s.store.IncreaseKeyUsageCount(ctx, key.ID)
