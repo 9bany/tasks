@@ -36,7 +36,7 @@ func (s *Server) GetSite(ctx *gin.Context) {
 				return
 			}
 
-			ctx.JSON(http.StatusOK, site)
+			ctx.JSON(http.StatusOK, site.MetaData)
 			return
 		}
 
@@ -44,7 +44,7 @@ func (s *Server) GetSite(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, site)
+	ctx.JSON(http.StatusOK, site.MetaData)
 
 }
 
