@@ -1,5 +1,6 @@
 # tasks
-
+- task1: [collaboration on oditor](https://github.com/9bany/tasks/blob/master/collaboration_on_oditor.md)
+- task2: [this repo](https://github.com/9bany/tasks)
 ## Improves
 - [migration] move migration tool in code
 - [consider] performance: random api key query  
